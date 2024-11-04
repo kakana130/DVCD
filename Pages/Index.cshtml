@@ -1,0 +1,37 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<center><img src="images/logo.jpg" width="400" /></center>
+
+<table class="table">
+    <thread>
+        <tr>
+            <th>From</th>
+            <th>Subject</th>
+            <th>Date/Time</th>
+            <th>Delete</th>
+        </tr>
+    </thread>
+
+    <tbody>
+        @foreach (var item in Model.listEmails)
+        {
+            <tr>
+                <td>@item.EmailSender</td>
+                <td>
+                    @if (item.EmailIsRead.Equals("0")) {
+                        <img src="images/yellow.gif" height="10pt"> 
+                    } 
+                    <a href="ReadEmail?emailid=@item.EmailID">@item.EmailSubject</a></td>
+                <td>@item.EmailDate</td>
+                <td>
+                    <a class="btn btn-primary btn-sm" href="DeleteEmail?emailid=@item.EmailID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a class="btn btn-primary btn-sm" href="/ComposeMail?Sender=@User.Identity.Name">Compose New Email</a>
