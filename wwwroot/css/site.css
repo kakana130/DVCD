@@ -15,14 +15,17 @@ html {
 
 body {
   margin-bottom: 60px;
-  background-color: maroon;
-  color: white;
+  background-image: url('/images/background.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: black;
 }
 
 th {
-    color: white;
+    color: black;
 }
 
 td {
-    color: white;
+    color: black;
 }

@@ -4,7 +4,17 @@
     ViewData["Title"] = "Home page";
 }
 
-<center><img src="images/logo.jpg" width="400" /></center>
+<head>
+    <style>
+        body {
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+<center><img src="images/logo.png" width="400" /></center>
+
+<a class="btn btn-primary btn-sm" href="/ComposeMail?Sender=@User.Identity.Name">Compose New Email</a>
 
 <table class="table">
     <thread>
@@ -23,7 +33,7 @@
                 <td>@item.EmailSender</td>
                 <td>
                     @if (item.EmailIsRead.Equals("0")) {
-                        <img src="images/yellow.gif" height="10pt"> 
+                        <img src="images/yellow.gif" height="10pt">
                     } 
                     <a href="ReadEmail?emailid=@item.EmailID">@item.EmailSubject</a></td>
                 <td>@item.EmailDate</td>
@@ -34,4 +44,4 @@
         }
     </tbody>
 </table>
-<a class="btn btn-primary btn-sm" href="/ComposeMail?Sender=@User.Identity.Name">Compose New Email</a>
+</body>
