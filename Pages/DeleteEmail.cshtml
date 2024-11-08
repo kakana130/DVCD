@@ -1,5 +1,28 @@
 ﻿@page
-@model FinalProject.Pages.DeleteEmailModel
+@using Microsoft.Data.SqlClient
+   
 @{
-}
+    try
+    {
+        string EmailID = Request.Query["EmailID"];
+        String connectionString = "Server=tcp:ic-connect.database.windows.net,1433;Initial Catalog=IC;Persist Security Info=False;User ID=DVCD;Password=ICconnect1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        using (SqlConnection connection = new SqlConnection(connectionString))
+        {
+            connection.Open();
+            string sql = "DELETE FROM emails WHERE EmailID=@EmailID";
+            using (SqlCommand command = new SqlCommand(sql, connection))
+            {
+                command.Parameters.AddWithValue("@EmailID", EmailID);
 
+                command.ExecuteNonQuery();
+            }
+        }
+    }
+    catch(Exception ex)
+    {
+
+    }
+
+    Response.Redirect("/Index");
+
+}
