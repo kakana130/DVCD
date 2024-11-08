@@ -1,0 +1,31 @@
+﻿@page
+@model FinalProject.Pages.ComposeEmailModel
+@{
+    ViewData["Title"] = "Compose New Email";
+}
+
+
+
+<h2>Compose New Email</h2>
+
+<form method="post">
+    <div>
+        <br>
+        <label for="to">To:</label>
+        <input type="text" id="to" name="EmailReceiver" required />
+    </div>
+    <div>
+        <br>
+        <label for="subject">Subject:</label>
+        <input type="text" id="subject" name="EmailSubject" required />
+        
+    </div>
+    <div>
+        <br>
+        <label for="message">Message:</label>
+        <textarea id="message" name="EmailMessage" required></textarea>
+    </div>
+    <br>
+    <button type="submit">Send</button>
+
+</form>

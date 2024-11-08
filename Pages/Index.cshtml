@@ -38,7 +38,7 @@
                     <a href="ReadEmail?emailid=@item.EmailID">@item.EmailSubject</a></td>
                 <td>@item.EmailDate</td>
                 <td>
-                    <a class="btn btn-primary btn-sm" href="DeleteEmail?emailid=@item.EmailID">Delete</a>
+                    <a class="btn btn-danger btn-sm" href="DeleteEmail?emailid=@item.EmailID" onclick="return confirm('คุณต้องการลบอีเมลนี้จริงๆ หรือไม่?');">Delete</a>
                 </td>
             </tr>
         }
