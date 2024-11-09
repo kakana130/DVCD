@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
 
@@ -17,6 +17,14 @@ namespace FinalProject.Pages
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
+
+                    string updateSql = "UPDATE emails SET EmailIsRead = 1 WHERE EmailID = @EmailID";
+                    using (SqlCommand updateCommand = new SqlCommand(updateSql, connection))
+                    {
+                        updateCommand.Parameters.AddWithValue("@EmailID", EmailID);
+                        updateCommand.ExecuteNonQuery(); // ทำการอัปเดต
+                    }
+
                     string sql = "SELECT * FROM emails WHERE EmailID = @EmailID";
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {

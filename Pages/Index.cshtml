@@ -27,21 +27,30 @@
     </thread>
 
     <tbody>
-        @foreach (var item in Model.listEmails)
-        {
-            <tr>
-                <td>@item.EmailSender</td>
-                <td>
-                    @if (item.EmailIsRead.Equals("0")) {
-                        <img src="images/yellow.gif" height="10pt">
-                    } 
-                    <a href="ReadEmail?emailid=@item.EmailID">@item.EmailSubject</a></td>
-                <td>@item.EmailDate</td>
-                <td>
-                    <a class="btn btn-danger btn-sm" href="DeleteEmail?emailid=@item.EmailID" onclick="return confirm('คุณต้องการลบอีเมลนี้จริงๆ หรือไม่?');">Delete</a>
-                </td>
-            </tr>
-        }
+            @foreach (var item in Model.listEmails)
+            {
+                <tr>
+                    <td>@item.EmailSender</td>
+                    <td>
+                        @if (item.EmailIsRead.Equals("0"))
+                        {
+                            <!-- เมื่อยังไม่ได้อ่าน ให้ใช้รูปสีเหลือง -->
+                            <img src="images/yellow.png" height="10pt" />
+                        }
+                        else
+                        {
+                            <!-- เมื่ออ่านแล้ว ให้ใช้รูปสีเขียว -->
+                            <img src="images/green.png" height="10pt" />
+                        }
+
+                        <a href="ReadEmail?emailid=@item.EmailID">@item.EmailSubject</a>
+                    </td>
+                    <td>@item.EmailDate</td>
+                    <td>
+                        <a class="btn btn-danger btn-sm" href="DeleteEmail?emailid=@item.EmailID" onclick="return confirm('คุณต้องการลบอีเมลนี้จริงๆ หรือไม่?');">Delete</a>
+                    </td>
+                </tr>
+            }
     </tbody>
 </table>
 </body>
