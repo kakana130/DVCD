@@ -3,6 +3,33 @@
 @{
     ViewData["Title"] = "Compose New Email";
 }
+@if (TempData["SuccessMessage"] != null)
+{
+    <div id="successMessage" class="alert alert-success" role="alert">
+        @TempData["SuccessMessage"]
+    </div>
+}
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger" role="alert">
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <p>@error.ErrorMessage</p>
+        }
+    </div>
+}
+
+<script>
+    window.onload = function() {
+        var message = document.getElementById("successMessage");
+        if (message) {
+            message.style.display = "block";
+            setTimeout(function() {
+                message.style.display = "none";
+            }, 3000);
+        }
+    };
+</script>
 
 <a class="btn btn-danger btn-sm" href="/Index">Back</a>
 <br>

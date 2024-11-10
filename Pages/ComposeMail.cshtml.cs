@@ -10,6 +10,7 @@ namespace FinalProject.Pages
     public class ComposeEmailModel : PageModel
     {
         private readonly ILogger<ComposeEmailModel> _logger;
+        private SqlConnection connection;
 
         public ComposeEmailModel(ILogger<ComposeEmailModel> logger)
         {
@@ -31,7 +32,6 @@ namespace FinalProject.Pages
             {
                 return Page();
             }
-            
 
             try
             {
@@ -39,6 +39,18 @@ namespace FinalProject.Pages
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     await connection.OpenAsync();
+
+                    string checkUserSql = "SELECT COUNT(1) FROM AspNetUsers WHERE Email = @receiver";
+                    using (SqlCommand checkCommand = new SqlCommand(checkUserSql, connection))
+                    {
+                        checkCommand.Parameters.AddWithValue("@receiver", EmailReceiver);
+                        int userExists = (int)await checkCommand.ExecuteScalarAsync();
+                        if (userExists == 0)
+                        {
+                            ModelState.AddModelError(string.Empty, "ไม่สามารถส่งอีเมลได้ เนื่องจากไม่พบอีเมลนี้ในระบบ");
+                            return Page();
+                        }
+                    }
 
                     string sql = "INSERT INTO emails (emailreceiver, emailsubject, emailmessage, emaildate, emailisread, emailsender) " +
                                  "VALUES (@receiver, @subject, @message, @date, @isread, @sender)";
@@ -55,7 +67,8 @@ namespace FinalProject.Pages
                     }
                 }
 
-                return RedirectToPage("/Index");
+                TempData["SuccessMessage"] = "ส่งอีเมลเรียบร้อยแล้ว";
+                return RedirectToPage("/ComposeMail");
             }
             catch (Exception ex)
             {
@@ -63,5 +76,6 @@ namespace FinalProject.Pages
                 return Page();
             }
         }
+
     }
 }
