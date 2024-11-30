@@ -35,6 +35,13 @@ namespace FinalProject.Pages
                 {
                     connection.Open();
 
+                    string updateSql = "UPDATE emails SET EmailIsRead = 1 WHERE EmailID = @EmailID";
+                    using (SqlCommand updateCommand = new SqlCommand(updateSql, connection))
+                    {
+                        updateCommand.Parameters.AddWithValue("@EmailID", EmailID);
+                        updateCommand.ExecuteNonQuery(); // ทำการอัปเดต
+                    }
+
                     string sql = "SELECT * FROM emails WHERE EmailID = @EmailID";
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -61,13 +68,8 @@ namespace FinalProject.Pages
                                     };
                                     listEmails.Add(emailInfo);
 
-                                    // อัปเดตสถานะการอ่าน
-                                    string updateSql = "UPDATE emails SET EmailIsRead = 1 WHERE EmailID = @EmailID";
-                                    using (SqlCommand updateCommand = new SqlCommand(updateSql, connection))
-                                    {
-                                        updateCommand.Parameters.AddWithValue("@EmailID", EmailID);
-                                        updateCommand.ExecuteNonQuery(); // อัปเดตสถานะการอ่าน
-                                    }
+                                   
+
                                 }
                                 else
                                 {
