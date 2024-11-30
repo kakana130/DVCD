@@ -49,7 +49,10 @@ namespace FinalProject.Pages
                                 emailInfo.EmailID = "" + reader.GetInt32(0);
                                 emailInfo.EmailSubject = reader.GetString(1);
                                 emailInfo.EmailMessage = reader.GetString(2);
-                                emailInfo.EmailDate = reader.GetDateTime(3).ToString();
+                                DateTime emailDateUTC = reader.GetDateTime(3);
+                                TimeZoneInfo thailandTimeZone = TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time");
+                                DateTime emailDateInThailand = TimeZoneInfo.ConvertTimeFromUtc(emailDateUTC, thailandTimeZone);
+                                emailInfo.EmailDate = emailDateInThailand.ToString("dd-MM-yyyy HH:mm:ss");
                                 emailInfo.EmailIsRead = "" + reader.GetInt32(4);
                                 emailInfo.EmailSender = reader.GetString(5);
                                 emailInfo.EmailReceiver = reader.GetString(6);

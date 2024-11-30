@@ -64,11 +64,13 @@ namespace FinalProject.Areas.Identity.Pages.Account
             public string LastName { get; set; }
 
             [Required]
-            [StringLength(15, ErrorMessage = "The Mobile Phone must be in between 7 to 15.", MinimumLength = 7)]
+            [StringLength(10, ErrorMessage = "The Mobile Phone must be in between 7 to 10.", MinimumLength = 7)]
+            [RegularExpression(@"^\d{7,15}$", ErrorMessage = "The Mobile Phone must contain only numbers and be between 7 to 10 digits.")]
             public string MobilePhone { get; set; }
 
             [Required]
             [StringLength(255, ErrorMessage = "The Username must be between 1 to 255.", MinimumLength = 1)]
+            [RegularExpression(@"^[a-zA-Z0-9@.]+$", ErrorMessage = "The Username must contain only English letters, numbers")]
             public string UserName { get; set; }
 
             [Required]

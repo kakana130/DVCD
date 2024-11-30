@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace FinalProject.Pages
 {
+    [Authorize]
     public class ComposeEmailModel : PageModel
     {
         private readonly ILogger<ComposeEmailModel> _logger;

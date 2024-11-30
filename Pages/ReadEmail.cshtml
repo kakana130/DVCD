@@ -2,22 +2,27 @@
 @model FinalProject.Pages.ReadEmailModel
 @{
     ViewData["Title"] = "Read Email";
+
 }
 
 <a class="btn btn-danger btn-sm" href="/Index">Back</a>
 <br>
 <br>
-<h3>From : @Model.listEmails[0].EmailSender</h3>
-<p style="color: gray;">to : @Model.listEmails[0].EmailReceiver</p>
+@if (Model.listEmails.Count > 0)
+{
+    <h3>From : @Model.listEmails[0].EmailSender</h3>
+    <p style="color: gray;">to : @Model.listEmails[0].EmailReceiver</p>
+    <h4>@Model.listEmails[0].EmailSubject</h4>
 
-
-<h4>@Model.listEmails[0].EmailSubject</h4>
-
-
-<table style="background-color: white" >
-    <tr>
-        <td style="height: 400px; width: 1070px; vertical-align: top;">
-            <p>@Model.listEmails[0].EmailMessage</p> 
-        </td>
-    </tr>
-</table>
+    <table style="background-color: white">
+        <tr>
+            <td style="height: 400px; width: 1070px; vertical-align: top;">
+                <p>@Model.listEmails[0].EmailMessage</p>
+            </td>
+        </tr>
+    </table>
+}
+else
+{
+    <p>No email found or you do not have permission to view this email.</p>
+}
